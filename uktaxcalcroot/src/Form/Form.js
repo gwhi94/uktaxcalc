@@ -110,48 +110,28 @@ export default function Form() {
                         Pension contribution.
                     </label>
 
-                    <div className="flex items-center space-x-2">
-                        {/* Pound Option */}
-                        <div className="pensionAmountWrapper">
-                            <label className="cursor-pointer flex items-center">
-                                <input
-                                    type="radio"
-                                    value="pound"
-                                    checked={selectedOptionPension === 'pound'}
-                                    onChange={handleOptionChange}
-                                    className="form-radio text-blue-600"
-                                />
-                                <div className="ml-2 text-blue-600 text-2xl">&#163;</div>
-                            </label>
-                        </div>
 
-
-                        {/* Percentage Option */}
-                        <div className="pensionPercentWrapper">
-                            <label className="cursor-pointer flex items-center">
-                                <input
-                                    type="radio"
-                                    value="percentage"
-                                    checked={selectedOptionPension === 'percentage'}
-                                    onChange={handleOptionChange}
-                                    className="form-radio text-green-600"
-                                />
-                                <div className="ml-2 text-green-600 text-2xl">%</div>
-                            </label>
+                    <div className="mb-4 grid grid-cols-2 pension-control-wrapper">
+                        <div className="columns">
+                            <div className="column is-12">
+                                <div className="amt-percent-toggle">
+                                    <input type="radio" id="switch_left" name="switch_2" value="yes" />
+                                    <label for="switch_left">%</label>
+                                    <input type="radio" id="switch_right" name="switch_2" value="no" checked />
+                                    <label for="switch_right">£</label>
+                                </div>
+                            </div>
                         </div>
+                        <input
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            type="text"
+                            id="textInput"
+                            name="textInput"
+                            value={formData.textInput}
+                            onChange={handleChange}
+                        />
                     </div>
 
-
-
-
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        type="text"
-                        id="textInput"
-                        name="textInput"
-                        value={formData.textInput}
-                        onChange={handleChange}
-                    />
                 </div>
 
 
