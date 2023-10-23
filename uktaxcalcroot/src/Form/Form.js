@@ -3,7 +3,7 @@ import { Switch } from '@headlessui/react'
 import { useFormContext } from 'react-hook-form'
 import { FormProvider, useForm } from 'react-hook-form'
 
-export default function Form() {
+export default function Form({ callback }) {
       const {
         register,
         handleSubmit,
@@ -12,7 +12,11 @@ export default function Form() {
       } = useForm();
 
       const onSubmit = (data) => {
-        console.log(data);
+        console.log('Submitted');
+
+        callback(data);
+
+    
       };
 
     const [formData, setFormData] = useState({

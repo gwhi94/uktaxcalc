@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import React, { useState } from 'react';
 import Navbar from './Navigation/Navbar'
 import Form from './Form/Form'
 import './App.css';
@@ -16,14 +17,16 @@ function App() {
     );
   }, []);
 
+  const [data, setData] = useState('{}');
+
   return (
 
     <div>
       <Navbar />
       <div className="main-content-container ml-auto mr-auto shadow-md rounded">
         <div className='grid grid-cols-2'>
-          <Form />
-          <CalculateOutput />
+          <Form callback={setData}  />
+          <CalculateOutput data={data}/>
         </div>
       </div>
     </div>
