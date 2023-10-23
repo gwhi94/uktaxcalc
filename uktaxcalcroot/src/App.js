@@ -3,7 +3,6 @@ import Navbar from './Navigation/Navbar'
 import Form from './Form/Form'
 import './App.css';
 import "./index.css";
-import Output from './Output/Output';
 import CalculateOutput from './CalculateOutput/CalculateOutput';
 import { useEffect } from 'react';
 
@@ -21,19 +20,13 @@ function App() {
 
     <div>
       <Navbar />
-
-      <Output />
-
-      <div className='grid grid-cols-2'>
-        <Form />
-        <CalculateOutput />
+      <div className="main-content-container ml-auto mr-auto shadow-md rounded">
+        <div className='grid grid-cols-2'>
+          <Form />
+          <CalculateOutput />
+        </div>
       </div>
-
-
     </div>
-
-
-
   );
 }
 

@@ -2,7 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-h3{font-size: x-large;}
+h3 {
+    font-size: x-large;
+}
+
+@media only screen and (min-width: 992px) {
+    .main-content-container {
+        max-width: 1200px;
+    }
+}
 
 .amt-percent-toggle input {
     clip: rect(0, 0, 0, 0);
@@ -11,13 +19,15 @@ h3{font-size: x-large;}
     border: 0;
     overflow: hidden;
 }
-.amt-percent-toggle input:checked + label {
+
+.amt-percent-toggle input:checked+label {
     background: #3ec1b6;
     background: #1f2937;
     color: white;
     font-weight: 500;
     box-shadow: 0 7px 20px rgba(0, 0, 0, 0.09), 0 6px 6px rgba(0, 0, 0, 0.13);
 }
+
 .amt-percent-toggle label {
     display: inline-block;
     width: 60px;
@@ -26,17 +36,20 @@ h3{font-size: x-large;}
     text-align: center;
     font-family: "Quicksand", sans-serif;
     font-size: 0.8rem;
-    padding: 6px 6px;
+    padding: 8px 25px;
     float: left;
     transition: all 0.1s ease-in-out;
 }
+
 .amt-percent-toggle label:hover {
     cursor: pointer;
 }
+
 .amt-percent-toggle label:first-of-type {
     border-radius: 15.5px 0 0 15.5px;
     border: 1px solid #1f2937;
 }
+
 .amt-percent-toggle label:last-of-type {
     border-radius: 0 15.5px 15.5px 0;
     border: 1px solid #1f2937;
