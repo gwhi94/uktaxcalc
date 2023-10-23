@@ -9,7 +9,11 @@ export default function Form() {
         handleSubmit,
         watch,
         formState: { errors },
-      } = useForm()
+      } = useForm();
+
+      const onSubmit = (data) => {
+        console.log(data);
+      };
 
     const [formData, setFormData] = useState({
         salary: '',
@@ -40,15 +44,11 @@ export default function Form() {
 
     const [enabled, setEnabled] = useState(false);
 
-    const onSubmit = methods.handleSubmit(data => {
-        console.log(data);
-    })
-
     return (
         <div className="w-full max-w-md mx-auto p-4">
             <FormProvider {...methods}>
                 <form className="rounded px-8 pt-6 pb-8 mb-4" 
-                onSubmit={e => e.preventDefault()}
+                onSubmit={handleSubmit(onSubmit)}
                 noValidate             
                 >
                     <div className="mb-4 flex items-center">
@@ -78,16 +78,16 @@ export default function Form() {
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            type="text"
+                            type="number"
                             id="salary"
                             name="salary"
                             value={formData.textInput}
                             onChange={handleChange}
                             {...register('salary', {
-                                value:'',
-                                message:'required',
+                                required:true,
                             })}
                         />
+                        {errors.salary && <p>This field is required</p>}
                     </div>
 
                     <div className="mb-4">
@@ -98,8 +98,11 @@ export default function Form() {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="dropdownYear"
                             name="dropdownYear"
-                            value={formData.dropdown}
+                            value={formData.dropdownYear}
                             onChange={handleChange}
+                            {...register('dropdownYear', {
+                                required:false,
+                            })}
                         >
                             <option value="2020/21">2020/21</option>
                             <option value="2021/22">2021/22</option>
@@ -119,6 +122,9 @@ export default function Form() {
                             name="taxCode"
                             value={formData.textInput}
                             onChange={handleChange}
+                            {...register('taxCode', {
+                                required:false,
+                            })}
                         />
                     </div>
 
@@ -134,6 +140,9 @@ export default function Form() {
                             name="bonus"
                             value={formData.textInput}
                             onChange={handleChange}
+                            {...register('bonus', {
+                                required:false,
+                            })}
                         />
                     </div>
 
@@ -162,6 +171,9 @@ export default function Form() {
                                 name="pensionAmt"
                                 value={formData.textInput}
                                 onChange={handleChange}
+                                {...register('pensionAmt', {
+                                    required:false,
+                                })}
                             />
                         </div>
                     </div>
@@ -177,6 +189,9 @@ export default function Form() {
                             name="dropdownLoan"
                             value={formData.dropdown}
                             onChange={handleChange}
+                            {...register('dropdownLoan', {
+                                required:false,
+                            })}
                         >
                             <option value="noLoan">No student loan</option>
                             <option value="plan1">England/Wales - Plan 1</option>
@@ -188,7 +203,7 @@ export default function Form() {
 
                     <div className="mb-4">
                         <label className="font-semibold text-slate-700 block text-gray-700 text-md font-bold mb-2" htmlFor="textInput">
-                            Other deductions
+                            Other deductions (optional)
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -197,6 +212,9 @@ export default function Form() {
                             name="deductions"
                             value={formData.textInput}
                             onChange={handleChange}
+                            {...register('deductions', {
+                                required:false,
+                            })}
                         />
                     </div>
 
@@ -205,8 +223,7 @@ export default function Form() {
                     <div className="mb-4">
                         <button
                             className="bg-blue-500 hover:bg-blue-700 text-slate-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="button"
-                            onClick={onSubmit}
+                            type="submit"
                         >
                             Calculate
                         </button>
