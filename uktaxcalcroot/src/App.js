@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import React, { useState } from 'react';
 import Navbar from './Navigation/Navbar'
 import Form from './Form/Form'
+import Header from './Header/Header';
 import './App.css';
 import "./index.css";
 import CalculateOutput from './CalculateOutput/CalculateOutput';
@@ -23,6 +24,7 @@ function App() {
 
     <div>
       <Navbar />
+      <Header />
       <div className="main-content-container ml-auto mr-auto shadow-md rounded">
         <div className='grid grid-cols-2'>
           <Form callback={setData}  />

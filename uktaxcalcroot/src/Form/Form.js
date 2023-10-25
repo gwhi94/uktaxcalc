@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
 import { Switch } from '@headlessui/react'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, Controller } from 'react-hook-form'
 import { FormProvider, useForm } from 'react-hook-form'
 
 export default function Form({ callback }) {
-      const {
+    const {
         register,
         handleSubmit,
         watch,
+        control,
         formState: { errors },
-      } = useForm();
+    } = useForm({
+        defaultValues:{
+            inScotland:false
+        }
+    });
 
-      const onSubmit = (data) => {
+    const onSubmit = (data) => {
         console.log('Submitted');
 
         callback(data);
 
-    
-      };
+
+    };
 
     const [formData, setFormData] = useState({
         salary: '',
@@ -51,28 +56,36 @@ export default function Form({ callback }) {
     return (
         <div className="w-full max-w-md mx-auto p-4">
             <FormProvider {...methods}>
-                <form className="rounded px-8 pt-6 pb-8 mb-4" 
-                onSubmit={handleSubmit(onSubmit)}
-                noValidate             
+                <form className="rounded px-8 pt-6 pb-8 mb-4"
+                    onSubmit={handleSubmit(onSubmit)}
+                    noValidate
                 >
                     <div className="mb-4 flex items-center">
                         <div className="mr-2 font-semibold text-slate-700 block text-gray-700 text-md font-bold" htmlFor="textInput">
                             In Scotland?
                         </div>
-                        <div className="grid place-items-center">
-                            <Switch
-                                checked={enabled}
-                                onChange={setEnabled}
-                                className={`${enabled ? 'bg-gray-800' : 'bg-gray-200'}
+                        <div className="grid place-items-center">                  
+                            <Controller
+                                control={control}
+                                name="inScotland"
+                                render={({ field }) =>  
+                                <Switch
+                                {...field}
+                                checked={field.value}
+                                id="inScotland"
+                                onChange={field.onChange}
+                                className={`${field.value ? 'bg-gray-800' : 'bg-gray-200'}
           relative inline-flex h-[28px] w-[56px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
                             >
-                                <span className="sr-only">Use setting</span>
+                                <span className="sr-only">In Scotland toggle</span>
                                 <span
                                     aria-hidden="true"
-                                    className={`${enabled ? 'translate-x-7' : 'translate-x-0'}
+                                    className={`${field.value ? 'translate-x-7' : 'translate-x-0'}
             pointer-events-none inline-block h-[24px] w-[23px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+
                                 />
-                            </Switch>
+                            </Switch>}
+                            />
                         </div>
                     </div>
 
@@ -88,10 +101,11 @@ export default function Form({ callback }) {
                             value={formData.textInput}
                             onChange={handleChange}
                             {...register('salary', {
-                                required:true,
+                                required: true,
                             })}
+
                         />
-                        {errors.salary && <p>This field is required</p>}
+                        {errors.salary && <p>Salary is required</p>}
                     </div>
 
                     <div className="mb-4">
@@ -105,7 +119,7 @@ export default function Form({ callback }) {
                             value={formData.dropdownYear}
                             onChange={handleChange}
                             {...register('dropdownYear', {
-                                required:false,
+                                required: false,
                             })}
                         >
                             <option value="2020/21">2020/21</option>
@@ -127,7 +141,7 @@ export default function Form({ callback }) {
                             value={formData.textInput}
                             onChange={handleChange}
                             {...register('taxCode', {
-                                required:false,
+                                required: false,
                             })}
                         />
                     </div>
@@ -145,7 +159,7 @@ export default function Form({ callback }) {
                             value={formData.textInput}
                             onChange={handleChange}
                             {...register('bonus', {
-                                required:false,
+                                required: false,
                             })}
                         />
                     </div>
@@ -176,7 +190,7 @@ export default function Form({ callback }) {
                                 value={formData.textInput}
                                 onChange={handleChange}
                                 {...register('pensionAmt', {
-                                    required:false,
+                                    required: false,
                                 })}
                             />
                         </div>
@@ -194,7 +208,7 @@ export default function Form({ callback }) {
                             value={formData.dropdown}
                             onChange={handleChange}
                             {...register('dropdownLoan', {
-                                required:false,
+                                required: false,
                             })}
                         >
                             <option value="noLoan">No student loan</option>
@@ -217,7 +231,7 @@ export default function Form({ callback }) {
                             value={formData.textInput}
                             onChange={handleChange}
                             {...register('deductions', {
-                                required:false,
+                                required: false,
                             })}
                         />
                     </div>

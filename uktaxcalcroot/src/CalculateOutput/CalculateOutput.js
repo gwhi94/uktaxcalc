@@ -1,3 +1,8 @@
+import React, { useState } from 'react';
+
+import Typewriter from '../Typewriter/Typewriter';
+
+
 export default function CalculateOutput({ data }) {
 
     // bonus:""
@@ -106,13 +111,7 @@ export default function CalculateOutput({ data }) {
 
     return (
         <div className="flex justify-center items-center content-center">
-            Enter your details on the left and click calculate. You results will show here.
-
-
-
-            {sum}
-
-
+            <Typewriter text="In tax year 2022/2023 with a salary of 65000, you will take home £46,749.40 annualy, £3,895.79 monthly, £3,596.11 four-weekly, £899.02 weekly and £179.81 daily." delay={30} />
         </div>
     )
 }
