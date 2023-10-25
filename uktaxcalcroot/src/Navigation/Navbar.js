@@ -5,10 +5,8 @@ import {} from '@heroicons/react/24/outline'
 import {UserIcon, Bars3Icon} from "@heroicons/react/24/solid"
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
+  { name: 'Tax Calculator', href: '#', current: true },
+  { name: 'Credit Card Payments Calculator', href: '#', current: false },
 ]
 
 function classNames(...classes) {
