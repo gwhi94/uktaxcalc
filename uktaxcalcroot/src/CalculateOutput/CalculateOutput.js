@@ -26,7 +26,7 @@ export default function CalculateOutput({ data }) {
 
         const upperNILimit = 50270;
         const lowerNILimit = 12570;
-        var salary = 65000;//debug remove        
+        //var salary = 65000;//debug remove        
         const niTaxableAmtAnnual = salary - lowerNILimit;
         let niDueAnnualy = niTaxableAmtAnnual * 0.12;
 
@@ -52,6 +52,8 @@ export default function CalculateOutput({ data }) {
         // console.log('National insurance due Weekly',niDueWeekly);
         // console.log('National insurance due Daily',niDueDaily);
 
+        console.log(niDueAnnualy);
+
     };
 
     const incomeTax = (salary) => {
@@ -60,11 +62,10 @@ export default function CalculateOutput({ data }) {
         const midRate = 50271;
         const bottomRate = 12570;
 
-        var salary = 65000; //debug remove
+        //var salary = 65000; //debug remove
 
         if (salary < upperRate) {
             //let totalTaxableSalary = salary - bottomRate;
-
             if (salary > midRate) {
                 var taxDueOnMidRate = (salary - midRate) * 0.4;
                 var diffAlreadyPaidTaxOn = salary - midRate;
@@ -100,12 +101,9 @@ export default function CalculateOutput({ data }) {
 
         }
 
-
-
-
-
-
     };
+
+    calculateNationalInsurance(data?.salary);
 
 
 

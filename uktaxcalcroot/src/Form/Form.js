@@ -103,7 +103,6 @@ export default function Form({ callback }) {
                             {...register('salary', {
                                 required: true,
                             })}
-
                         />
                         {errors.salary && <p>Salary is required</p>}
                     </div>
@@ -175,10 +174,10 @@ export default function Form({ callback }) {
                             <div className="columns">
                                 <div className="column is-12">
                                     <div className="amt-percent-toggle">
-                                        <input type="radio" id="switch_left" name="switch_2" value="yes" checked />
-                                        <label for="switch_left">%</label>
-                                        <input type="radio" id="switch_right" name="switch_2" value="no" />
-                                        <label for="switch_right">£</label>
+                                        <input type="radio" id="pension-percent" value="yes" checked {...register('pensionToggle', {required:false })} />
+                                        <label for="pension-percent">%</label>
+                                        <input type="radio" id="pension-amount" value="no" {...register('pensionToggle', {required:false })} />
+                                        <label for="pension-amount">£</label>
                                     </div>
                                 </div>
                             </div>
@@ -214,15 +213,16 @@ export default function Form({ callback }) {
                             <option value="noLoan">No student loan</option>
                             <option value="plan1">England/Wales - Plan 1</option>
                             <option value="plan2">England/Wales - Plan 2</option>
-                            <option value="plan3">Scotland - Plan 4</option>
-                            <option value="plan4">Postgrad loan</option>
+                            <option value="plan4">Scotland - Plan 4</option>
+                            <option value="planPostGrad">Postgrad loan</option>
                         </select>
                     </div>
 
                     <div className="mb-4">
-                        <label className="font-semibold text-slate-700 block text-gray-700 text-md font-bold mb-2" htmlFor="textInput">
-                            Other deductions (optional)
+                        <label className="font-semibold text-slate-700 block text-gray-700 text-md font-bold mb-0" htmlFor="textInput">
+                            Other annual deductions (optional)
                         </label>
+                        <small className="mt-0">Enter any additional annual pre-tax deductions</small>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             type="text"
