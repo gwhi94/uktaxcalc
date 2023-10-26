@@ -6,7 +6,8 @@ import {UserIcon, Bars3Icon} from "@heroicons/react/24/solid"
 
 const navigation = [
   { name: 'Tax Calculator', href: '#', current: true },
-  { name: 'Credit Card Payments Calculator', href: '#', current: false },
+  { name: 'Debt Calculator', href: '#', current: false },
+  { name: 'Tax Codes', href: '#', current: false },
 ]
 
 function classNames(...classes) {

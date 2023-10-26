@@ -223,10 +223,10 @@ export default function Form({ callback }) {
                         <label className="font-semibold text-slate-700 block text-gray-700 text-md font-bold mb-0" htmlFor="textInput">
                             Other annual deductions (optional)
                         </label>
-                        <small className="mt-0">Enter any additional annual pre-tax deductions</small>
+                        <small className="mt-0">Enter any additional <strong>annual</strong> pre-tax deductions</small>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            type="text"
+                            type="number"
                             id="deductions"
                             name="deductions"
                             value={formData.textInput}
