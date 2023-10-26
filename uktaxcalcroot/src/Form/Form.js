@@ -166,15 +166,16 @@ export default function Form({ callback }) {
                     <h3 className='mb-1 font-semibold text-red-500'>Deductions</h3>
 
                     <div className="mb-4">
-                        <label className="font-semibold text-slate-700 block text-gray-700 text-md font-bold mb-2" htmlFor="textInput">
-                            Pension contribution.
+                        <label className="font-semibold text-slate-700 block text-gray-700 text-md font-bold mb-0" htmlFor="textInput">
+                            Monthly Pension Contribution.
                         </label>
+                        <small className="mt-0">Enter your monthly % contribution, or the actual amount.</small>
 
                         <div className="grid grid-cols-2 pension-control-wrapper items-center">
                             <div className="columns">
                                 <div className="column is-12">
                                     <div className="amt-percent-toggle">
-                                        <input type="radio" id="pension-percent" value="yes" checked {...register('pensionToggle', {required:false })} />
+                                        <input type="radio" id="pension-percent" value="yes"  {...register('pensionToggle', {required:false })} />
                                         <label for="pension-percent">%</label>
                                         <input type="radio" id="pension-amount" value="no" {...register('pensionToggle', {required:false })} />
                                         <label for="pension-amount">£</label>
@@ -183,7 +184,7 @@ export default function Form({ callback }) {
                             </div>
                             <input
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                type="text"
+                                type="number"
                                 id="pensionAmt"
                                 name="pensionAmt"
                                 value={formData.textInput}
