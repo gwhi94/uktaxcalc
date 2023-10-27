@@ -4,6 +4,7 @@ import Typewriter from '../Typewriter/Typewriter';
 
 
 export default function CalculateOutput({ data }) {
+    console.log('here');
 
     // bonus:""
     // deductions:""
@@ -13,13 +14,48 @@ export default function CalculateOutput({ data }) {
     // salary:"333"
     // taxCode:""
 
-    console.log('DATA', data);
+    //console.log('DATA', data);
 
     const [salary, setSalary] = useState(0);
     const [tax, setTax] = useState(0);
     const [takeHomeWeekly, setTakeHomeWeekly] = useState(0);
     const [takeHomeMonthly, setTakeHomeMonthly] = useState(0);
     const [takeHomeYearly, setTakeHomeYearly] = useState(0);
+
+    const recordObject = {
+        annualTakeHome: '',
+        monthlyTakeHome: '',
+        fourWeeklyTakeHome: '',
+        dailyTakeHome: '',
+        taxPaidYearly: '',
+        taxPaidMonthly: '',
+        taxPaidFourWeekly: '',
+        taxPaidWeekly: '',
+        taxPaidDaily: '',
+        niPaidYearly: '',
+        niPaidMonthly: '',
+        niPaidFourWeekly: '',
+        niPaidWeekly: '',
+        niPaidDaily: '',
+        totalTaxableYearly: '',
+        totalTaxableMonthly: '',
+        totalTaxableFourWeekly: '',
+        totalTaxableDaily: '',
+
+
+    }
+
+
+
+    const handleAdditions = () => {
+        if (data?.bonus) {
+            data.salary = Number(data.salary) + Number(data.bonus);
+            console.log(data);
+        }
+
+    };
+
+    handleAdditions();
 
 
     const calculateNationalInsurance = (salary) => {
@@ -59,7 +95,7 @@ export default function CalculateOutput({ data }) {
         const highRate = 43663
         const intermediateRate = 25689;
         const lowerRate = 14733;
-        const bottomRate = bottomRate;
+        // const bottomRate = bottomRate;
 
         if (salary > 100000) {
             var paBottomRateAdjusted = bottomRate - ((salary - 100000) / 2);
@@ -114,7 +150,7 @@ export default function CalculateOutput({ data }) {
     const calculateIncomeTaxEngWales = (salary, bottomRate) => {
         const upperRate = 125140;
         const midRate = 50271;
-        const bottomRate = bottomRate;
+        //const bottomRate = bottomRate;
 
         if (salary > 100000) {
             var paBottomRateAdjusted = bottomRate - ((salary - 100000) / 2);
@@ -163,25 +199,25 @@ export default function CalculateOutput({ data }) {
 
         if (!data?.taxCode) {
             if (!inScotland) {
-                this.calculateIncomeTaxEngWales(data?.salary,12570);
+                this.calculateIncomeTaxEngWales(data?.salary, 12570);
             } else {
-                this.calculateIncomeTaxScotland(data?.salary,12571);
+                this.calculateIncomeTaxScotland(data?.salary, 12571);
             }
         } else if (data?.taxCode) {
             console.log('Tax code supplied');
             //TODO:Need to build in logic here, if an invalid TC is supplied then continue calculations based on default tax rates
-            
+
             //Pull out the prefixed numbers to get the custom PA
             const extractedPA = data?.taxCode.match(/\d+/g);
-            const extractedCode =  data?.taxCode.match(/[a-zA-Z]+/g);
+            const extractedCode = data?.taxCode.match(/[a-zA-Z]+/g);
 
-            if(extractedPA){
+            if (extractedPA) {
                 var usePaNumber = extractedPA;
-            }else{
+            } else {
                 var usePaNumber = 1257
             }
-            
-            
+
+
             if (extractedCode = 'CD1') {
                 //Welsh tax code, so apply ENG/WALES rates
                 //Apply additional tax rate to all income
@@ -202,65 +238,63 @@ export default function CalculateOutput({ data }) {
                 //Welsh tax code, so apply ENG/WALES rates
                 //Apply Welsh rates (Same as England)
                 var totalTaxDue = this.calculateIncomeTaxEngWales(data?.salary, usePaNumber);
-            }else if (extractedCode = 'SD2') {
+            } else if (extractedCode = 'SD2') {
                 //Scottish tax code
                 //Apply additonal tax rate to all income
                 var totalTaxDue = salary * 0.47;
-            }else if (extractedCode = 'SD1') {
+            } else if (extractedCode = 'SD1') {
                 //Scottish tax code
                 //Apply higher tax rate to all income
                 var totalTaxDue = salary * 0.42;
-            }else if (extractedCode = 'SD0') {
+            } else if (extractedCode = 'SD0') {
                 //Scottish tax code
                 //Apply intermediate tax rate to all income
                 var totalTaxDue = salary * 0.21;
-            }else if (extractedCode = 'SBR') {
+            } else if (extractedCode = 'SBR') {
                 //Scottish tax code
                 //Apply basic tax rate to all income
                 var totalTaxDue = salary * 0.20;
-            }else if (extractedCode = 'S0T') {
+            } else if (extractedCode = 'S0T') {
                 //Scottish tax code
                 //No personal allowance
                 var totalTaxDue = this.calculateIncomeTaxScotland(data?.salary, 0);
-            }else if (extractedCode = 'S') {
+            } else if (extractedCode = 'S') {
                 //Scottish tax code
                 //No personal allowance
                 var totalTaxDue = this.calculateIncomeTaxScotland(data?.salary, usePaNumber);
-            }else if (extractedCode = 'NT') {
+            } else if (extractedCode = 'NT') {
                 //Scottish tax code
                 //No tax paid at all
                 var totalTaxDue = 0;
-            }else if (extractedCode = 'D') {
+            } else if (extractedCode = 'D') {
                 //England tax code
                 //Apply additonal tax rate to all income
                 var totalTaxDue = salary * 0.45;
-            }else if (extractedCode = 'D0') {
+            } else if (extractedCode = 'D0') {
                 //England tax code
                 //Apply higher tax rate to all income
                 var totalTaxDue = salary * 0.40;
-            }else if (extractedCode = 'BR') {
+            } else if (extractedCode = 'BR') {
                 //England tax code
                 //Apply basic tax rate to all income
                 var totalTaxDue = salary * 0.20;
-            }else if (extractedCode = '0T') {
+            } else if (extractedCode = '0T') {
                 //England tax code
                 //No personal allowance
                 var totalTaxDue = this.calculateIncomeTaxEngWales(data?.salary, 0);
-            }else if (extractedCode = 'L') {
+            } else if (extractedCode = 'L') {
                 //England tax code
                 //No personal allowance
                 var totalTaxDue = this.calculateIncomeTaxEngWales(data?.salary, usePaNumber);
-            }else{
+            } else {
                 //Cannot match tax code, return standard tax rates
-                if(!inScotland){
+                if (!inScotland) {
                     var totalTaxDue = this.calculateIncomeTaxEngWales(data?.salary, usePaNumber)
-                }else{
+                } else {
                     this.calculateIncomeTaxScotland(data?.salary, usePaNumber);
                 }
-                
+
             }
-
-
         }
     };
 
@@ -319,16 +353,76 @@ export default function CalculateOutput({ data }) {
         if (data?.deductions != "") {
             var otherDeductions = data.deductions;
         }
-
-
     }
 
-    calculateNationalInsurance(data?.salary, data?.inScotland);
+
+
 
 
     return (
-        <div className="flex justify-center items-center content-center">
+        <div className="flex justify-center items-center content-center flex-col">
             <Typewriter text="In tax year 2022/2023 with a salary of 65000, you will take home £46,749.40 annualy, £3,895.79 monthly, £3,596.11 four-weekly, £899.02 weekly and £179.81 daily." delay={30} />
+
+
+
+            <table className="results-by-table">
+                <thead className="results-by-table-headers">
+                    <tr>
+                        <th className="table-headers">&nbsp;</th>
+                        <th className="table-headers">Gross Income</th>
+                        <th className="table-headers">Taxable</th>
+                        <th className="table-headers">Tax</th>
+                        <th className="table-headers">N Insurance</th>
+                        <th className="table-headers">Take Home</th>
+
+                    </tr>
+                </thead>
+                <tbody className="results__content">
+                    <tr className="columns-4">
+                        <td className="">Yearly</td>
+                        <td className="">£ 50,000.00</td>
+                        <td className="">£ 37,430.00</td>
+                        <td className="">£ 7,486.00</td>
+                        <td className="">£ 4,491.60</td>
+                        <td className="">£ 38,022.40</td>
+                    </tr>
+                    <tr className="columns-4">
+                        <td className="">Monthly</td>
+                        <td className="">£ 4,166.67</td>
+                        <td className="">£ 3,119.17</td>
+                        <td className="">£ 623.83</td>
+                        <td className="">£ 374.30</td>
+                        <td className="">£ 3,168.54</td>
+                    </tr>
+                    <tr className="columns-4">
+                        <td className="">Weekly</td>
+                        <td className="">£ 961.54</td>
+                        <td className="">£ 719.81</td>
+                        <td className="">£ 143.96</td>
+                        <td className="">£ 86.38</td>
+                        <td className="">£ 731.20</td>
+                    </tr>
+                    <tr className="columns-4">
+                        <td className=""><abbr title="">Daily</abbr></td>
+                        <td className="">£ 192.31</td>
+                        <td className="">£ 143.96</td>
+                        <td className="">£ 28.79</td>
+                        <td className="">£ 17.28</td>
+                        <td className="">£ 146.24</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+
+
+
         </div>
+
+
+
+
+
     )
 }

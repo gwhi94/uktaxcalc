@@ -12,7 +12,7 @@ h3 {
 
 @media only screen and (min-width: 992px) {
     .main-content-container {
-        max-width: 1200px;
+        max-width: 1400px;
     }
 }
 
@@ -57,4 +57,51 @@ h3 {
 .amt-percent-toggle label:last-of-type {
     border-radius: 0 15.5px 15.5px 0;
     border: 1px solid #1f2937;
+}
+
+.results-by-table{
+    display: flex;
+    overflow: hidden;
+    background: none;vertical-align: top;
+    max-width: 840px;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+.results-by-table-headers{
+    display: flex;
+    flex-shrink: 0;
+    min-width: min-content;
+    text-align: left;
+}
+.results-by-table tr{
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    min-width: 108px;
+    width: 25%;
+}
+
+.results-by-table tbody{
+    display: flex;
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: calc(100% - 132px);
+}
+
+.results-by-table td{
+    width: 100%;
+    line-height: 40px;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-left: none;
+    padding: 0 6px;
+    min-height: 40px;
+    text-align: right;
+    font-size: 0.9rem;
+}
+.table-headers{
+    min-height: 50px;
 }
