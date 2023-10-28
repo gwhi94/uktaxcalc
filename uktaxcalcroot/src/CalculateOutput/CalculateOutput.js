@@ -23,72 +23,26 @@ export default function CalculateOutput({ data }) {
     const [takeHomeYearly, setTakeHomeYearly] = useState(0);
 
     const recordObject = {
-        annualTakeHome: '',
-        monthlyTakeHome: '',
-        fourWeeklyTakeHome: '',
-        dailyTakeHome: '',
-        taxPaidYearly: '',
-        taxPaidMonthly: '',
-        taxPaidFourWeekly: '',
-        taxPaidWeekly: '',
-        taxPaidDaily: '',
-        niPaidYearly: '',
-        niPaidMonthly: '',
-        niPaidFourWeekly: '',
-        niPaidWeekly: '',
-        niPaidDaily: '',
-        totalTaxableYearly: '',
-        totalTaxableMonthly: '',
-        totalTaxableFourWeekly: '',
-        totalTaxableDaily: '',
-
-
-    }
-
-
-
-    const handleAdditions = () => {
-        if (data?.bonus) {
-            data.salary = Number(data.salary) + Number(data.bonus);
-            console.log(data);
-        }
-
+        annualTakeHome: 0,
+        monthlyTakeHome: 0,
+        weeklyTakeHome: 0,
+        dailyTakeHome: 0,
+        taxPaidYearly: 0,
+        taxPaidMonthly: 0,
+        taxPaidFourWeekly: 0,
+        taxPaidWeekly: 0,
+        taxPaidDaily: 0,
+        niPaidYearly: 0,
+        niPaidMonthly: 0,
+        niPaidFourWeekly: 0,
+        niPaidWeekly: 0,
+        niPaidDaily: 0,
+        totalTaxableYearly: 0,
+        totalTaxableMonthly: 0,
+        totalTaxableWeekly: 0,
+        totalTaxableDaily: 0,
     };
 
-    handleAdditions();
-
-
-    const calculateNationalInsurance = (salary) => {
-        const upperNILimit = 50270;
-        const lowerNILimit = 12570;
-        //var salary = 65000;//debug remove        
-        const niTaxableAmtAnnual = salary - lowerNILimit;
-        let niDueAnnualy = niTaxableAmtAnnual * 0.12;
-
-        if (salary > upperNILimit) {
-            let upperAndLowerNIDue = (upperNILimit - lowerNILimit) * 0.12;
-            let overNiThresholdDelta = salary - upperNILimit;
-            let niOverThreshDue = overNiThresholdDelta * 0.02;
-            niDueAnnualy = upperAndLowerNIDue + niOverThreshDue
-        }
-
-        if (niDueAnnualy < 0) {
-            niDueAnnualy = 0;
-        }
-
-        let niDueMonthly = niDueAnnualy / 12;
-        let niDueWeekly = niDueAnnualy / 52;
-        let niDueFourWeekly = niDueWeekly * 4;
-        let niDueDaily = niDueAnnualy / 365;
-
-        // console.log('National insurance due Annualy',niDueAnnualy);
-        // console.log('National insurance due Monthy',niDueMonthly);
-        // console.log('National insurance due Four Weekly',niDueFourWeekly);
-        // console.log('National insurance due Weekly',niDueWeekly);
-        // console.log('National insurance due Daily',niDueDaily);
-        console.log(niDueAnnualy);
-
-    };
 
     const calculateIncomeTaxScotland = (salary, bottomRate) => {
         const upperRate = 125140;
@@ -133,17 +87,13 @@ export default function CalculateOutput({ data }) {
             var totalTaxDue = taxDueOnBottomRate;
         }
 
-        let incomeTaxDueAnnualy = Math.round(totalTaxDue).toFixed(2);
-        let incomeTaxDueMonthly = incomeTaxDueAnnualy / 12;
-        let incomeTaxDueWeekly = incomeTaxDueAnnualy / 52;
-        let incomeTaxDueFourWeekly = incomeTaxDueWeekly * 4;
-        let incomeTaxDueDaily = incomeTaxDueAnnualy / 365;
 
-        console.log('Income tax due annualy', incomeTaxDueAnnualy);
-        console.log('Income tax due Monthy', incomeTaxDueMonthly);
-        console.log('Income tax due Four Weekly', incomeTaxDueFourWeekly);
-        console.log('Income tax due Weekly', incomeTaxDueWeekly);
-        console.log('Income tax due Daily', incomeTaxDueDaily);
+        recordObject.taxPaidYearly= Math.round(totalTaxDue).toFixed(2);
+        recordObject.taxPaidMonthly = (totalTaxDue / 12).toFixed(2);
+        recordObject.taxPaidWeekly = (totalTaxDue / 52).toFixed(2);
+        recordObject.taxPaidDaily = (totalTaxDue / 365).toFixed(2);
+
+  
 
     };
 
@@ -172,26 +122,26 @@ export default function CalculateOutput({ data }) {
                 var diffAlreadyPaidTaxOn = 0;
             }
 
-            let taxDueOnBottomRate = ((salary - diffAlreadyPaidTaxOn) - paBottomRateAdjusted) * 0.2;
-            let totalTaxDue = taxDueOnBottomRate + taxDueOnMidRate;
-            let incomeTaxDueAnnualy = Math.round(totalTaxDue).toFixed(2);
-            let incomeTaxDueMonthly = incomeTaxDueAnnualy / 12;
-            let incomeTaxDueWeekly = incomeTaxDueAnnualy / 52;
-            let incomeTaxDueFourWeekly = incomeTaxDueWeekly * 4;
-            let incomeTaxDueDaily = incomeTaxDueAnnualy / 365;
+            var taxDueOnBottomRate = ((salary - diffAlreadyPaidTaxOn) - paBottomRateAdjusted) * 0.2;
+            var totalTaxDue = taxDueOnBottomRate + taxDueOnMidRate;
+            
+            recordObject.taxPaidYearly= Math.round(totalTaxDue).toFixed(2);
+            recordObject.taxPaidMonthly = (totalTaxDue / 12).toFixed(2);
+            recordObject.taxPaidWeekly = (totalTaxDue / 52).toFixed(2);
+            recordObject.taxPaidDaily = (totalTaxDue / 365).toFixed(2);
 
         } else if (salary > upperRate) {
             var taxDueOnUpperRate = (salary - upperRate) * 0.45
             var taxDueOnHighRate = (upperRate - midRate) * 0.40;
             var taxDueOnBottomRate = (midRate - paBottomRateAdjusted) * 0.20;
             var totalTaxDue = taxDueOnUpperRate + taxDueOnHighRate + taxDueOnBottomRate;
-            console.log(paBottomRateAdjusted, taxDueOnUpperRate, taxDueOnBottomRate)
-            console.log('Tax due on higher salary', totalTaxDue);
         }
+
+
 
     };
 
-    const incomeTax = (salary, inScotland) => {
+    const calculateIncomeTax = (salary, inScotland) => {
 
         //Incoming tax code
         //Split out numbers and letters
@@ -199,10 +149,14 @@ export default function CalculateOutput({ data }) {
 
         if (!data?.taxCode) {
             if (!inScotland) {
-                this.calculateIncomeTaxEngWales(data?.salary, 12570);
+                calculateIncomeTaxEngWales(data?.salary, 12570);
             } else {
-                this.calculateIncomeTaxScotland(data?.salary, 12571);
+                calculateIncomeTaxScotland(data?.salary, 12571);
             }
+
+
+
+
         } else if (data?.taxCode) {
             console.log('Tax code supplied');
             //TODO:Need to build in logic here, if an invalid TC is supplied then continue calculations based on default tax rates
@@ -300,17 +254,7 @@ export default function CalculateOutput({ data }) {
 
 
     const removeDeductions = (data) => {
-        // bonus:""
-        // deductions:""
-        // dropdownLoan:"noLoan"
-        // dropdownYear:"2023/24"
-        // pensionAmt:""
-        // salary:"333"
-        // taxCode:""
 
-        //pension first
-
-        //debug
         var data = {
             bonus: "",
             deductions: "1500",
@@ -356,14 +300,52 @@ export default function CalculateOutput({ data }) {
     }
 
 
+    const calculateNationalInsurance = (salary) => {
+        const upperNILimit = 50270;
+        const lowerNILimit = 12570;      
+        const niTaxableAmtAnnual = salary - lowerNILimit;
+        let niDueAnnualy = niTaxableAmtAnnual * 0.12;
+
+        if (salary > upperNILimit) {
+            let upperAndLowerNIDue = (upperNILimit - lowerNILimit) * 0.12;
+            let overNiThresholdDelta = salary - upperNILimit;
+            let niOverThreshDue = overNiThresholdDelta * 0.02;
+            niDueAnnualy = upperAndLowerNIDue + niOverThreshDue
+        }
+
+        if (niDueAnnualy < 0) {
+            niDueAnnualy = 0;
+        }
+
+        recordObject.niPaidYearly = (niDueAnnualy).toFixed(2);
+        recordObject.niPaidMonthly = (niDueAnnualy / 12).toFixed(2);
+        recordObject.niPaidWeekly = (niDueAnnualy / 52).toFixed(2);
+        recordObject.niPaidDaily = (niDueAnnualy / 365).toFixed(2);
+
+        calculateIncomeTax(data?.salary, data?.inScotland);
+    };
+
+    const handleAdditions = () => {
+        if (data?.bonus) {
+            data.salary = Number(data.salary) + Number(data.bonus);
+            console.log(data);
+        }
+
+        calculateNationalInsurance(data?.salary);
+    };
+
+    handleAdditions();
+
+
+
 
 
 
     return (
         <div className="flex justify-center items-center content-center flex-col">
-            <Typewriter text="In tax year 2022/2023 with a salary of 65000, you will take home £46,749.40 annualy, £3,895.79 monthly, £3,596.11 four-weekly, £899.02 weekly and £179.81 daily." delay={30} />
-
-
+            <div className='mb-6 '>
+                <Typewriter text="In tax year 2022/2023 with a salary of 65000, you will take home £46,749.40 annualy, £3,895.79 monthly, £3,596.11 four-weekly, £899.02 weekly and £179.81 daily." delay={30} />
+            </div>
 
             <table className="results-by-table">
                 <thead className="results-by-table-headers">
@@ -380,35 +362,35 @@ export default function CalculateOutput({ data }) {
                 <tbody className="results__content">
                     <tr className="columns-4">
                         <td className="">Yearly</td>
-                        <td className="">£ 50,000.00</td>
-                        <td className="">£ 37,430.00</td>
-                        <td className="">£ 7,486.00</td>
-                        <td className="">£ 4,491.60</td>
-                        <td className="">£ 38,022.40</td>
+                        <td className="">£ {data?.salary}</td>
+                        <td className="">£ {recordObject?.totalTaxableYearly}</td>
+                        <td className="">£ {recordObject?.taxPaidYearly}</td>
+                        <td className="">£ {recordObject?.niPaidYearly}</td>
+                        <td className="">£ {recordObject?.annualTakeHome}</td>
                     </tr>
                     <tr className="columns-4">
                         <td className="">Monthly</td>
-                        <td className="">£ 4,166.67</td>
-                        <td className="">£ 3,119.17</td>
-                        <td className="">£ 623.83</td>
-                        <td className="">£ 374.30</td>
-                        <td className="">£ 3,168.54</td>
+                        <td className="">£ {(data?.salary / 12).toFixed(2)}</td>
+                        <td className="">£ {recordObject?.totalTaxableMonthly}</td>
+                        <td className="">£ {recordObject?.taxPaidMonthly}</td>
+                        <td className="">£ {recordObject?.niPaidMonthly}</td>
+                        <td className="">£ {recordObject?.monthlyTakeHome}</td>
                     </tr>
                     <tr className="columns-4">
                         <td className="">Weekly</td>
-                        <td className="">£ 961.54</td>
-                        <td className="">£ 719.81</td>
-                        <td className="">£ 143.96</td>
-                        <td className="">£ 86.38</td>
-                        <td className="">£ 731.20</td>
+                        <td className="">£ {(data?.salary / 52).toFixed(2)}</td>
+                        <td className="">£ {recordObject?.totalTaxableWeekly}</td>
+                        <td className="">£ {recordObject?.taxPaidWeekly}</td>
+                        <td className="">£ {recordObject?.niPaidWeekly}</td>
+                        <td className="">£ {recordObject?.weeklyTakeHome}</td>
                     </tr>
                     <tr className="columns-4">
                         <td className=""><abbr title="">Daily</abbr></td>
-                        <td className="">£ 192.31</td>
-                        <td className="">£ 143.96</td>
-                        <td className="">£ 28.79</td>
-                        <td className="">£ 17.28</td>
-                        <td className="">£ 146.24</td>
+                        <td className="">£ {(data?.salary / 365).toFixed(2)}</td>
+                        <td className="">£ {recordObject?.totalTaxableDaily}</td>
+                        <td className="">£ {recordObject?.taxPaidDaily}</td>
+                        <td className="">£ {recordObject?.niPaidDaily}</td>
+                        <td className="">£ {recordObject?.dailyTakeHome}</td>
                     </tr>
                 </tbody>
             </table>
