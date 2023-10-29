@@ -69,6 +69,7 @@ h3 {
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
+    vertical-align: top;
 }
 .results-by-table-headers{
     display: flex;
@@ -103,5 +104,11 @@ h3 {
     font-size: 0.9rem;
 }
 .table-headers{
-    min-height: 50px;
+    width: 100%;
+    line-height: 42px;
+    border-left: none;
+    padding: 0 6px;
+    min-height: 30px;
+    text-align: left;
+    font-size: 0.9rem;
 }

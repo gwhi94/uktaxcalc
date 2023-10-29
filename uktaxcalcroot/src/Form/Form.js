@@ -107,7 +107,7 @@ export default function Form({ callback }) {
                         {errors.salary && <p>Salary is required</p>}
                     </div>
 
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                         <label className="font-semibold text-slate-700 block text-gray-700 text-md font-bold mb-2" htmlFor="dropdown">
                             Tax year
                         </label>
@@ -126,7 +126,7 @@ export default function Form({ callback }) {
                             <option value="2022/23">2022/23</option>
                             <option value="2023/24">2023/24</option>
                         </select>
-                    </div>
+                    </div> */}
 
                     <div className="mb-4">
                         <label className="font-semibold text-slate-700 block text-gray-700 text-md font-bold mb-2" htmlFor="textInput">
