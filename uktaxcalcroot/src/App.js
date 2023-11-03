@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+// import logo from './uktaxcalclogo.png';
 import React, { useState } from 'react';
 import Navbar from './Navigation/Navbar'
 import Form from './Form/Form'
@@ -26,7 +26,7 @@ function App() {
       <Navbar />
       <Header />
       <div className="main-content-container ml-auto mr-auto shadow-md rounded">
-        <div className='grid grid-cols-2'>
+        <div className='grid grid-cols-2 p-6'>
           <Form callback={setData}  />
           <CalculateOutput data={data}/>
         </div>

@@ -54,13 +54,16 @@ export default function Form({ callback }) {
     const [enabled, setEnabled] = useState(false);
 
     return (
-        <div className="w-full max-w-md mx-auto p-4">
+        <div className="w-full max-w-md mx-auto p-6 font-semibold">
+            <h2 className='intro-headers'>Enter your details below</h2>
             <FormProvider {...methods}>
-                <form className="rounded px-8 pt-6 pb-8 mb-4"
+                <form className="rounded px-4 pt-6 pb-8 "
                     onSubmit={handleSubmit(onSubmit)}
                     noValidate
                 >
+                    <p className='mb-4 font-semibold '>Calculated for the current tax year 2022/23</p>
                     <div className="mb-4 flex items-center">
+                        
                         <div className="mr-2 font-semibold text-slate-700 block text-gray-700 text-md font-bold" htmlFor="textInput">
                             In Scotland?
                         </div>
@@ -74,7 +77,7 @@ export default function Form({ callback }) {
                                 checked={field.value}
                                 id="inScotland"
                                 onChange={field.onChange}
-                                className={`${field.value ? 'bg-gray-800' : 'bg-gray-200'}
+                                className={`${field.value ? 'bg-green-500' : 'bg-gray-200'}
           relative inline-flex h-[28px] w-[56px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
                             >
                                 <span className="sr-only">In Scotland toggle</span>
@@ -241,7 +244,7 @@ export default function Form({ callback }) {
 
                     <div className="mb-4">
                         <button
-                            className="bg-blue-500 hover:bg-blue-700 text-slate-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            className="bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             type="submit"
                         >
                             Calculate

@@ -6,8 +6,8 @@ import {UserIcon, Bars3Icon} from "@heroicons/react/24/solid"
 
 const navigation = [
   { name: 'Tax Calculator', href: '#', current: true },
-  { name: 'Debt Calculator', href: '#', current: false },
-  { name: 'CGT Calculator', href: '#', current: false },
+  // { name: 'Debt Calculator', href: '#', current: false },
+  // { name: 'CGT Calculator', href: '#', current: false },
   { name: 'Tax Codes', href: '#', current: false },
 ]
 
@@ -34,11 +34,11 @@ export default function Example() {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:ju stify-start">
+              <div className="flex flex-1 items-center justify-left sm:items-stretch sm:ju stify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    src={require('./uktaxcalclogo.png')}
                     alt="Your Company"
                   />
                 </div>
