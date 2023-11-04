@@ -11,6 +11,7 @@ export default function CalculateOutput({ data }) {
     const [takeHomeWeekly, setTakeHomeWeekly] = useState(0);
     const [takeHomeMonthly, setTakeHomeMonthly] = useState(0);
     const [takeHomeYearly, setTakeHomeYearly] = useState(0);
+    var typeText = '';
 
 
 
@@ -49,7 +50,7 @@ export default function CalculateOutput({ data }) {
 
 
     const calculateIncomeTaxScotland = (salary, bottomRate) => {
-
+        
         if (salary > 12570) {
             const upperRate = 125140;
             const highRate = 43663
@@ -113,6 +114,8 @@ export default function CalculateOutput({ data }) {
             recordObject.taxPaidWeekly = 0;
             recordObject.taxPaidDaily = 0;
         }
+
+        console.log('1');
     };
 
     const calculateIncomeTaxEngWales = (salary, bottomRate) => {
@@ -128,8 +131,7 @@ export default function CalculateOutput({ data }) {
             } else if (salary <= 100000) {
                 var paBottomRateAdjusted = 12570;
             }
-
-            console.log('1', paBottomRateAdjusted);
+  
 
             recordObject.totalTaxableYearly = (salary - paBottomRateAdjusted).toFixed(2);
             recordObject.totalTaxableMonthly = (recordObject.totalTaxableYearly / 12).toFixed(2);
@@ -172,6 +174,7 @@ export default function CalculateOutput({ data }) {
             recordObject.taxPaidWeekly = 0;
             recordObject.taxPaidDaily = 0;
         }
+        console.log('2');
     };
 
     const calculateIncomeTax = (salary, inScotland) => {
@@ -278,7 +281,9 @@ export default function CalculateOutput({ data }) {
 
 
         }
-        console.log('ff', recordObject);
+        console.log('3', recordObject);
+        typeText = `In the current tax year with a salary of "£`+(Number(recordObject.initialAnnualSalary)).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+`,you will take home £`+(recordObject?.initialAnnualSalary - (Number(recordObject.pensionDeductionAnnualy) + Number(recordObject.sfPaidAnnualy) + Number(recordObject?.taxPaidYearly) + Number(recordObject?.niPaidYearly))).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+` annualy, £`+((recordObject?.initialAnnualSalary / 12) - (Number(recordObject.pensionDeductionMonthly) + Number(recordObject.sfPaidMonthly) + Number(recordObject?.taxPaidMonthly) + Number(recordObject?.niPaidMonthly))).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+` monthly, 
+        £` +((recordObject?.initialAnnualSalary / 52) - (Number(recordObject.pensionDeductionWeekly) + Number(recordObject.sfPaidWeekly) + Number(recordObject?.taxPaidWeekly) + Number(recordObject?.niPaidWeekly))).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+` weekly and £`+((recordObject?.initialAnnualSalary / 260) - (Number(recordObject.pensionDeductionDaily) + Number(recordObject.sfPaidDaily) + Number(recordObject?.taxPaidDaily) + Number(recordObject?.niPaidDaily))).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+` daily.`; 
     };
 
 
@@ -331,6 +336,8 @@ export default function CalculateOutput({ data }) {
 
         data.salary = data.salary - (otherDeductions + pensionDeduction + sfDeductions);
         calculateNationalInsurance(data?.salary);
+
+        console.log('4');
     }
 
 
@@ -357,6 +364,8 @@ export default function CalculateOutput({ data }) {
         recordObject.niPaidDaily = (niDueAnnualy / 260).toFixed(2);
 
         calculateIncomeTax(data?.salary, data?.inScotland);
+
+        console.log('5');
     };
 
     const handleAdditions = () => {
@@ -366,7 +375,9 @@ export default function CalculateOutput({ data }) {
         }
 
         removeDeductions(data);
-        //calculateNationalInsurance(data?.salary);
+        console.log('Finished', recordObject);
+
+
     };
 
     if (data.salary) {
@@ -380,7 +391,7 @@ export default function CalculateOutput({ data }) {
 
     return (
         <div className="p-6 flex flex-col">
-            <h2 className="intro-headers font-semibold">And see your results here</h2>
+            <h2 className="intro-headers font-semibold">Salary breakdown</h2>
             <table className="results-by-table pt-6">
                 <thead className="results-by-table-headers">
                     <tr>
@@ -439,14 +450,9 @@ export default function CalculateOutput({ data }) {
                 </tbody>
             </table>
 
-            <div className='mb-6 typed-callout pt-6 bg-slate-400 rounded p-6 text-white font-semibold mt-6'>
-                <Typewriter text="In tax year 2022/2023 with a salary of 65000, you will take home £46,749.40 annualy, £3,895.79 monthly, £3,596.11 four-weekly, £899.02 weekly and £179.81 daily." delay={30} />
+            <div className='mb-6 typed-callout pt-6 bg-slate-400 rounded p-6 text-white mt-6' >
+                <Typewriter text={typeText} delay={30} />
             </div>
-
-
-
-
-
 
         </div>
 

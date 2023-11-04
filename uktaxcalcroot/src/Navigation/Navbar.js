@@ -9,6 +9,9 @@ const navigation = [
   // { name: 'Debt Calculator', href: '#', current: false },
   // { name: 'CGT Calculator', href: '#', current: false },
   { name: 'Tax Codes', href: '#', current: false },
+  { name: 'Tax Rates', href: '#', current: false },
+  { name: 'National Insurance', href: '#', current: false },
+  { name: 'Student loan repayments', href: '#', current: false },
 ]
 
 function classNames(...classes) {

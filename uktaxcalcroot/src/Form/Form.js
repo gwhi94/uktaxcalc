@@ -55,9 +55,8 @@ export default function Form({ callback }) {
 
     return (
         <div className="w-full max-w-md mx-auto p-6 font-semibold">
-            <h2 className='intro-headers'>Enter your details below</h2>
             <FormProvider {...methods}>
-                <form className="rounded px-4 pt-6 pb-8 "
+                <form className="rounded pt-6 pb-8 "
                     onSubmit={handleSubmit(onSubmit)}
                     noValidate
                 >
