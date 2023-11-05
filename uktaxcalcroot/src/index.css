@@ -122,3 +122,15 @@ h3 {
 .intro-headers{
     font-size: 1.5rem;
 }
+
+.d-none{
+    display: none !important;
+}
+
+.d-block{
+    display: block !important;
+}
+
+.float-left{
+    float: left !important;
+}

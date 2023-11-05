@@ -13,8 +13,6 @@ export default function CalculateOutput({ data }) {
     const [takeHomeYearly, setTakeHomeYearly] = useState(0);
     var typeText = '';
 
-
-
     const recordObject = {
         initialAnnualSalary: 0,
         initialMonthlySalary: 0,
@@ -45,7 +43,8 @@ export default function CalculateOutput({ data }) {
         sfPaidAnnualy: 0,
         sfPaidMonthly: 0,
         sfPaidWeekly: 0,
-        sfPaidDaily: 0
+        sfPaidDaily: 0,
+        recordObjectComplete:false
     };
 
 
@@ -278,11 +277,13 @@ export default function CalculateOutput({ data }) {
                 }
 
             }
-
-
         }
+
+        recordObject.recordObjectComplete = true;
+        console.log(recordObject, 'here');
         console.log('3', recordObject);
-        typeText = `In the current tax year with a salary of "£`+(Number(recordObject.initialAnnualSalary)).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+`,you will take home £`+(recordObject?.initialAnnualSalary - (Number(recordObject.pensionDeductionAnnualy) + Number(recordObject.sfPaidAnnualy) + Number(recordObject?.taxPaidYearly) + Number(recordObject?.niPaidYearly))).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+` annualy, £`+((recordObject?.initialAnnualSalary / 12) - (Number(recordObject.pensionDeductionMonthly) + Number(recordObject.sfPaidMonthly) + Number(recordObject?.taxPaidMonthly) + Number(recordObject?.niPaidMonthly))).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+` monthly, 
+        
+        typeText = `In the current tax year with a salary of £`+(Number(recordObject.initialAnnualSalary)).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+` ,you will take home £`+(recordObject?.initialAnnualSalary - (Number(recordObject.pensionDeductionAnnualy) + Number(recordObject.sfPaidAnnualy) + Number(recordObject?.taxPaidYearly) + Number(recordObject?.niPaidYearly))).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+` annualy, £`+((recordObject?.initialAnnualSalary / 12) - (Number(recordObject.pensionDeductionMonthly) + Number(recordObject.sfPaidMonthly) + Number(recordObject?.taxPaidMonthly) + Number(recordObject?.niPaidMonthly))).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+` monthly, 
         £` +((recordObject?.initialAnnualSalary / 52) - (Number(recordObject.pensionDeductionWeekly) + Number(recordObject.sfPaidWeekly) + Number(recordObject?.taxPaidWeekly) + Number(recordObject?.niPaidWeekly))).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+` weekly and £`+((recordObject?.initialAnnualSalary / 260) - (Number(recordObject.pensionDeductionDaily) + Number(recordObject.sfPaidDaily) + Number(recordObject?.taxPaidDaily) + Number(recordObject?.niPaidDaily))).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+` daily.`; 
     };
 
@@ -450,7 +451,7 @@ export default function CalculateOutput({ data }) {
                 </tbody>
             </table>
 
-            <div className='mb-6 typed-callout pt-6 bg-slate-400 rounded p-6 text-white mt-6' >
+            <div className={"mb-6 typed-callout pt-6 bg-slate-400 rounded p-6 text-white mt-6 " + (recordObject.recordObjectComplete ? 'd-block' : 'd-none')}>
                 <Typewriter text={typeText} delay={30} />
             </div>
 

@@ -9,10 +9,11 @@ export default function Form({ callback }) {
         handleSubmit,
         watch,
         control,
+        reset,
         formState: { errors },
     } = useForm({
-        defaultValues:{
-            inScotland:false
+        defaultValues: {
+            inScotland: false
         }
     });
 
@@ -51,6 +52,11 @@ export default function Form({ callback }) {
         setSelectedOptionPension(e.target.value);
     };
 
+    const resetForm = () => {
+        console.log('Reset form');
+
+    }
+
     const [enabled, setEnabled] = useState(false);
 
     return (
@@ -62,31 +68,31 @@ export default function Form({ callback }) {
                 >
                     <p className='mb-4 font-semibold '>Calculated for the current tax year 2022/23</p>
                     <div className="mb-4 flex items-center">
-                        
+
                         <div className="mr-2 font-semibold text-slate-700 block text-gray-700 text-md font-bold" htmlFor="textInput">
                             In Scotland?
                         </div>
-                        <div className="grid place-items-center">                  
+                        <div className="grid place-items-center">
                             <Controller
                                 control={control}
                                 name="inScotland"
-                                render={({ field }) =>  
-                                <Switch
-                                {...field}
-                                checked={field.value}
-                                id="inScotland"
-                                onChange={field.onChange}
-                                className={`${field.value ? 'bg-green-500' : 'bg-gray-200'}
+                                render={({ field }) =>
+                                    <Switch
+                                        {...field}
+                                        checked={field.value}
+                                        id="inScotland"
+                                        onChange={field.onChange}
+                                        className={`${field.value ? 'bg-green-500' : 'bg-gray-200'}
           relative inline-flex h-[28px] w-[56px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
-                            >
-                                <span className="sr-only">In Scotland toggle</span>
-                                <span
-                                    aria-hidden="true"
-                                    className={`${field.value ? 'translate-x-7' : 'translate-x-0'}
+                                    >
+                                        <span className="sr-only">In Scotland toggle</span>
+                                        <span
+                                            aria-hidden="true"
+                                            className={`${field.value ? 'translate-x-7' : 'translate-x-0'}
             pointer-events-none inline-block h-[24px] w-[23px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
 
-                                />
-                            </Switch>}
+                                        />
+                                    </Switch>}
                             />
                         </div>
                     </div>
@@ -177,9 +183,9 @@ export default function Form({ callback }) {
                             <div className="columns">
                                 <div className="column is-12">
                                     <div className="amt-percent-toggle">
-                                        <input type="radio" id="pension-percent" value="yes"  {...register('pensionToggle', {required:false })} />
+                                        <input type="radio" id="pension-percent" value="yes"  {...register('pensionToggle', { required: false })} />
                                         <label for="pension-percent">%</label>
-                                        <input type="radio" id="pension-amount" value="no" {...register('pensionToggle', {required:false })} />
+                                        <input type="radio" id="pension-amount" value="no" {...register('pensionToggle', { required: false })} />
                                         <label for="pension-amount">£</label>
                                     </div>
                                 </div>
@@ -240,14 +246,24 @@ export default function Form({ callback }) {
                     </div>
 
 
-
-                    <div className="mb-4">
-                        <button
-                            className="bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="submit"
-                        >
-                            Calculate
-                        </button>
+                    <div className='cta-container flex justify-center flex-row align-center float-left'>
+                        <div className="mb-4">
+                            <button
+                                className="bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                type="submit"
+                            >
+                                Calculate
+                            </button>
+                        </div>
+                        <div className="mb-4 ml-2">
+                            <button
+                                onClick={resetForm}
+                                className="bg-red-600 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                type="button"
+                            >
+                                Reset
+                            </button>
+                        </div>
                     </div>
                 </form >
             </FormProvider>
